@@ -1,9 +1,52 @@
-<h1>질문 목록({{name}})</h1>
+{% load static %}
+<link rel = "stylesheet" type = "text/css" href = "{% static 'bootstrap.min.css'%}">
+
+<div class = "containter my-3">
+    <table class = "table">
+        <thead>
+            <tr class = " thead-dark">
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성일시</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% if question_list %}
+            {% for question in question_list%}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                    <a href = "{% url 'pybo:detail' question.id %}">
+                        {{ question.subject }}</a>
+                    <span class="badge badge-pill badge-primary"> {{question.answer_set.count}} </span>
+                    </td>
+                <td>{{question.create_date}}</td>
+                </tr>
+            {%endfor%}
+            {%else%}
+            <tr>
+                <td colspan="3">질문이 없습니다.</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+<div class = "clearfix">
+<div class = "text-right float-right">(총 : {{total_count}}건)</div>        
+
+<div class="float-left">
+<a href = "{% url 'pybo:index' %}" class = "btn btn-primary"><i class = "fas fa-list"></i>질문 등록하기</a>
+</div>
+</div>
+
+
+{% comment %} <h1>질문 목록({{name}})</h1>
 
 {% if question_list %}
 <ul>
     {% for question in question_list %}
-    <li><a href='{% url pybo:detail question.id %}'>{{question.subject}}</a></li>
+    <li><a href='{% url 'pybo:detail' question.id %}'>{{question.subject}}</a></li>
     {% endfor %}
 </ul>
 {% else %}
@@ -17,4 +60,4 @@
 
 {% if question_list %}
 
-{% endif %}
+{% endif %} {% endcomment %}
