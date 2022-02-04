@@ -19,4 +19,5 @@ from django.urls import path,include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pybo/', include('pybo.urls')) #pybo 패키지의 urls모듈을 사용하라.
+    path('common/', include('common.urls'))
 ]
